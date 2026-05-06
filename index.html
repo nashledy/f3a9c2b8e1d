@@ -15,6 +15,7 @@
     --accent: #d94a2a;
     --accent-2: #2b6e5e;
     --accent-3: #c9a227;
+    --accent-4: #6b4eff;
     --muted: #625c52;
     --line: rgba(14, 17, 22, 0.15);
     --line-strong: rgba(14, 17, 22, 0.35);
@@ -32,6 +33,7 @@
     background-image: radial-gradient(rgba(14,17,22,0.035) 1px, transparent 1px);
     background-size: 4px 4px;
   }
+  ::selection { background: var(--accent); color: var(--paper); }
 
   /* ============ TOP BAR ============ */
   .topbar {
@@ -40,9 +42,10 @@
     padding: 1rem 2rem;
     background: rgba(242, 238, 229, 0.85);
     backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
     border-bottom: 1px solid var(--line);
     font-family: 'JetBrains Mono', monospace;
-    font-size: 0.72rem;
+    font-size: 0.7rem;
     text-transform: uppercase;
     letter-spacing: 0.12em;
   }
@@ -58,7 +61,7 @@
     0%, 100% { box-shadow: 0 0 0 3px rgba(217, 74, 42, 0.2); }
     50% { box-shadow: 0 0 0 8px rgba(217, 74, 42, 0); }
   }
-  .topbar nav { display: flex; gap: 1.5rem; }
+  .topbar nav { display: flex; gap: 1.3rem; }
   .topbar nav a {
     color: var(--ink); text-decoration: none;
     position: relative; padding-bottom: 2px;
@@ -78,9 +81,8 @@
     width: 0%; z-index: 101;
     transition: width 0.1s linear;
   }
-
-  @media (max-width: 780px) {
-    .topbar { padding: 0.75rem 1rem; font-size: 0.62rem; }
+  @media (max-width: 880px) {
+    .topbar { padding: 0.75rem 1rem; font-size: 0.6rem; }
     .topbar nav, .topbar .meta { display: none; }
   }
 
@@ -93,7 +95,6 @@
     margin: 0 auto;
     overflow: hidden;
   }
-
   .hero-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -102,7 +103,7 @@
   }
   @media (max-width: 980px) { .hero-grid { grid-template-columns: 1fr; gap: 2rem; } }
 
-  .hero-tag {
+  .eyebrow {
     font-family: 'JetBrains Mono', monospace;
     font-size: 0.75rem;
     text-transform: uppercase;
@@ -113,7 +114,7 @@
     align-items: center;
     gap: 0.75rem;
   }
-  .hero-tag::before {
+  .eyebrow::before {
     content: ""; width: 30px; height: 1px; background: var(--accent);
   }
 
@@ -131,20 +132,13 @@
     transform: translateY(40px);
     animation: word-rise 0.8s forwards cubic-bezier(0.2,0.7,0.2,1);
   }
-  @keyframes word-rise {
-    to { opacity: 1; transform: translateY(0); }
-  }
-  h1.hero-title em {
-    font-style: italic; font-weight: 900; color: var(--accent);
-  }
-  h1.hero-title .under {
-    position: relative; display: inline-block;
-  }
+  @keyframes word-rise { to { opacity: 1; transform: translateY(0); } }
+  h1.hero-title em { font-style: italic; font-weight: 900; color: var(--accent); }
+  h1.hero-title .under { position: relative; display: inline-block; }
   h1.hero-title .under::after {
     content: ""; position: absolute;
     left: 0; right: 0; bottom: 0.1em;
-    height: 0.15em;
-    background: var(--accent-3); opacity: 0.5; z-index: -1;
+    height: 0.15em; background: var(--accent-3); opacity: 0.5; z-index: -1;
   }
 
   .hero-lede {
@@ -191,21 +185,17 @@
     perspective: 900px;
     perspective-origin: 50% 50%;
   }
-
   .helix-3d {
-    position: absolute;
-    inset: 0;
+    position: absolute; inset: 0;
     transform-style: preserve-3d;
     animation: spin 14s linear infinite;
   }
   .helix-stage.paused .helix-3d { animation-play-state: paused; }
   .helix-stage.fast .helix-3d { animation-duration: 4s; }
-
   @keyframes spin {
     from { transform: rotateY(0deg); }
     to { transform: rotateY(360deg); }
   }
-
   .basepair {
     position: absolute;
     left: 50%; top: 50%;
@@ -214,10 +204,8 @@
     transform-origin: center;
   }
   .basepair .rung {
-    position: absolute;
-    left: 0; right: 0; top: 0;
-    height: 2px;
-    background: var(--ink);
+    position: absolute; left: 0; right: 0; top: 0;
+    height: 2px; background: var(--ink);
   }
   .basepair .nucleotide {
     position: absolute; top: -5px;
@@ -232,7 +220,6 @@
   .basepair.target .rung { background: var(--accent); height: 1px; opacity: 0.4; }
   .basepair.cut .rung { opacity: 0; }
   .basepair.cut .nucleotide { background: var(--accent); border-color: var(--accent); animation: cut-pulse 1.4s infinite; }
-
   @keyframes cut-pulse {
     0%, 100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(217, 74, 42, 0.5); }
     50% { transform: scale(1.4); box-shadow: 0 0 0 10px rgba(217, 74, 42, 0); }
@@ -248,13 +235,10 @@
     transform-style: preserve-3d;
     transform: translateZ(140px);
     box-shadow: 0 6px 20px rgba(0,0,0,0.3), inset -8px -4px 16px rgba(0,0,0,0.3);
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    display: flex; align-items: center; justify-content: center;
     color: var(--paper);
     font-family: 'JetBrains Mono', monospace;
-    font-size: 0.65rem;
-    font-weight: 700;
+    font-size: 0.65rem; font-weight: 700;
     letter-spacing: 0.1em;
     animation: cas9-orbit 14s linear infinite;
   }
@@ -281,9 +265,7 @@
     text-transform: uppercase;
     letter-spacing: 0.15em;
     color: var(--muted);
-    display: flex;
-    align-items: center;
-    gap: 0.4rem;
+    display: flex; align-items: center; gap: 0.4rem;
     z-index: 5;
     background: rgba(242,238,229,0.8);
     padding: 4px 8px;
@@ -304,9 +286,7 @@
     position: absolute;
     bottom: 0; left: 50%;
     transform: translateX(-50%);
-    display: flex;
-    gap: 0.5rem;
-    z-index: 6;
+    display: flex; gap: 0.5rem; z-index: 6;
     opacity: 0;
     animation: fade-in-late 1s 2s forwards;
   }
@@ -319,16 +299,146 @@
     text-transform: uppercase;
     letter-spacing: 0.15em;
     color: var(--ink);
+    cursor: pointer;
     transition: all 0.2s;
   }
-  .helix-btn:hover, .helix-btn.active {
-    background: var(--ink); color: var(--paper);
-  }
+  .helix-btn:hover, .helix-btn.active { background: var(--ink); color: var(--paper); }
   .helix-btn.active { background: var(--accent); border-color: var(--accent); color: var(--paper); }
 
   @media (max-width: 980px) {
     .floater { display: none; }
     .helix-stage { height: 460px; }
+  }
+
+  /* ============ HERO POLL (NEW) ============ */
+  .poll-section {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 4rem 2rem 6rem;
+    border-top: 1px solid var(--line);
+  }
+  .poll-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.3fr;
+    gap: 4rem;
+    align-items: start;
+  }
+  @media (max-width: 900px) { .poll-grid { grid-template-columns: 1fr; gap: 2.5rem; } }
+
+  .poll-section .section-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.72rem; text-transform: uppercase;
+    letter-spacing: 0.2em; color: var(--accent);
+  }
+  .poll-section .section-label::before { content: "§ "; color: var(--muted); }
+
+  .poll-q {
+    font-family: 'Fraunces', serif;
+    font-weight: 300;
+    font-size: clamp(1.6rem, 3vw, 2.4rem);
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    margin-top: 1.5rem;
+  }
+  .poll-q em { font-style: italic; font-weight: 900; color: var(--accent); }
+
+  .poll-context {
+    font-family: 'Fraunces', serif;
+    font-size: 1.05rem;
+    line-height: 1.55;
+    margin-bottom: 2rem;
+    max-width: 56ch;
+  }
+
+  .vote-row { display: flex; gap: 0.75rem; flex-wrap: wrap; margin-bottom: 1.25rem; }
+  .vote-btn {
+    flex: 1; min-width: 130px;
+    padding: 1.05rem 1.35rem;
+    background: var(--paper);
+    border: 1.5px solid var(--ink);
+    color: var(--ink);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.72rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    position: relative;
+    overflow: hidden;
+  }
+  .vote-btn::before {
+    content: ""; position: absolute; inset: 0;
+    background: var(--accent);
+    transform: translateX(-101%);
+    transition: transform 0.3s ease;
+    z-index: 0;
+  }
+  .vote-btn:hover::before { transform: translateX(0); }
+  .vote-btn span { position: relative; z-index: 1; }
+  .vote-btn:hover { color: var(--paper); border-color: var(--accent); }
+  .vote-btn:hover span { color: var(--paper); }
+
+  .vote-results {
+    display: none;
+    border-top: 1px solid var(--line);
+    padding-top: 1.5rem;
+    margin-top: 1rem;
+    animation: fade-up 0.6s forwards;
+  }
+  .vote-results.show { display: block; }
+  .vote-results .label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--muted);
+    margin-bottom: 1rem;
+  }
+  .vote-bar { margin-bottom: 0.85rem; }
+  .vote-bar .bar-label {
+    font-family: 'Inter Tight', sans-serif;
+    font-size: 0.85rem;
+    margin-bottom: 0.35rem;
+    display: flex; justify-content: space-between; align-items: baseline;
+  }
+  .vote-bar .bar-label strong { font-weight: 700; }
+  .vote-bar .bar-label .pct {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.75rem;
+    font-weight: 700;
+  }
+  .vote-bar .bar-label .your { color: var(--accent); font-style: italic; font-size: 0.7rem; }
+  .vote-bar .track {
+    height: 8px;
+    background: rgba(14, 17, 22, 0.08);
+    border-radius: 4px;
+    overflow: hidden;
+  }
+  .vote-bar .fill {
+    height: 100%;
+    background: var(--ink);
+    border-radius: 4px;
+    transform-origin: left;
+    transform: scaleX(0);
+    transition: transform 1s cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
+  .vote-bar.your-pick .fill { background: var(--accent); }
+  .poll-coda {
+    margin-top: 1.25rem;
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: 1rem;
+    color: var(--muted);
+  }
+  .poll-coda strong { font-style: normal; color: var(--ink); font-weight: 700; }
+  .poll-coda .arrow {
+    font-style: normal;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--accent);
   }
 
   /* ============ MARQUEE ============ */
@@ -387,88 +497,111 @@
   }
   .thesis-body p:first-of-type { font-size: 1.3rem; }
 
-  /* ============ MYTH VS REALITY ============ */
+  /* ============ FLIP CARDS ============ */
   .myth-section {
     background: var(--paper-warm);
-    padding: 6rem 2rem;
+    padding: 7rem 2rem;
     border-top: 1px solid var(--line);
     border-bottom: 1px solid var(--line);
   }
-  .myth-inner { max-width: 1200px; margin: 0 auto; }
+  .myth-inner { max-width: 1300px; margin: 0 auto; }
   .myth-section h2 {
     font-family: 'Fraunces', serif;
-    font-size: clamp(1.8rem, 4vw, 3rem);
+    font-size: clamp(1.8rem, 4.5vw, 3.5rem);
     font-weight: 300; line-height: 1.05;
     letter-spacing: -0.02em;
-    margin-bottom: 3rem; text-align: center;
+    margin-bottom: 1rem;
+    max-width: 22ch;
   }
   .myth-section h2 em { font-style: italic; font-weight: 900; color: var(--accent); }
-
-  .myth-tabs {
-    display: flex; gap: 0;
-    border-bottom: 1px solid var(--ink);
-    margin-bottom: 3rem;
-    flex-wrap: wrap;
-  }
-  .myth-tab {
-    flex: 1; min-width: 180px;
-    padding: 1.2rem 1rem;
-    background: transparent; border: none;
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.72rem;
-    text-transform: uppercase;
-    letter-spacing: 0.15em;
+  .myth-section .deck {
+    font-family: 'Fraunces', serif;
+    font-size: 1.15rem;
+    line-height: 1.5;
     color: var(--muted);
-    border-bottom: 2px solid transparent;
-    transition: all 0.3s;
-    text-align: left;
+    max-width: 55ch;
+    margin-bottom: 3.5rem;
   }
-  .myth-tab:hover { color: var(--ink); }
-  .myth-tab.active {
-    color: var(--ink);
-    border-bottom-color: var(--accent);
-  }
+  .myth-section .deck em { font-style: italic; color: var(--ink); }
 
-  .myth-content {
+  .flip-grid {
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 3rem;
-    min-height: 240px;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.25rem;
   }
-  @media (max-width: 800px) { .myth-content { grid-template-columns: 1fr; } }
+  @media (max-width: 1100px) { .flip-grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 600px) { .flip-grid { grid-template-columns: 1fr; } }
 
-  .myth-side {
-    padding: 2rem;
+  .flip-card {
+    aspect-ratio: 3/4;
+    perspective: 1200px;
+    cursor: pointer;
+  }
+  .flip-card-inner {
+    position: relative;
+    width: 100%; height: 100%;
+    transition: transform 0.7s cubic-bezier(0.2, 0.8, 0.2, 1);
+    transform-style: preserve-3d;
+  }
+  .flip-card.flipped .flip-card-inner { transform: rotateY(180deg); }
+
+  .flip-face {
+    position: absolute;
+    inset: 0;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    padding: 1.85rem 1.6rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
     border: 1px solid var(--line-strong);
+  }
+  .flip-front {
     background: var(--paper);
-    transition: all 0.4s;
-    opacity: 0;
-    animation: fade-up 0.5s forwards;
+    color: var(--ink);
   }
-  .myth-side.fiction { border-left: 3px solid var(--accent); }
-  .myth-side.reality { border-left: 3px solid var(--accent-2); }
-  .myth-side h4 {
+  .flip-back {
+    background: var(--ink);
+    color: var(--paper);
+    transform: rotateY(180deg);
+    border-color: var(--ink);
+  }
+  .flip-face .meta {
     font-family: 'JetBrains Mono', monospace;
-    font-size: 0.7rem;
+    font-size: 0.62rem;
     text-transform: uppercase;
-    letter-spacing: 0.2em;
-    margin-bottom: 1rem;
+    letter-spacing: 0.18em;
   }
-  .myth-side.fiction h4 { color: var(--accent); }
-  .myth-side.reality h4 { color: var(--accent-2); }
-  .myth-side h3 {
+  .flip-front .meta { color: var(--accent); }
+  .flip-back .meta { color: var(--accent-3); }
+  .flip-face h4 {
     font-family: 'Fraunces', serif;
-    font-size: 1.6rem;
-    font-weight: 400;
-    line-height: 1.15;
-    margin-bottom: 1rem;
+    font-weight: 300;
+    font-size: 1.45rem;
+    line-height: 1.05;
     letter-spacing: -0.01em;
+    margin-top: 0.5rem;
   }
-  .myth-side p {
+  .flip-front h4 em { font-style: italic; font-weight: 800; color: var(--accent); }
+  .flip-back h4 em { font-style: italic; font-weight: 800; color: var(--accent-3); }
+  .flip-face p {
     font-family: 'Fraunces', serif;
-    font-size: 1rem;
-    line-height: 1.55;
+    font-size: 0.92rem;
+    line-height: 1.45;
+    margin-top: auto;
   }
+  .flip-back p { color: rgba(242, 238, 229, 0.85); }
+  .flip-face .turn-cue {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.6rem;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    margin-top: 1rem;
+    align-self: flex-start;
+    opacity: 0.7;
+  }
+  .flip-front .turn-cue::after { content: " ↻"; color: var(--accent); }
+  .flip-back .turn-cue::after { content: " ↺"; color: var(--accent-3); }
 
   /* ============ PILLARS ============ */
   .pillars {
@@ -482,7 +615,6 @@
     background-size: 4px 4px; pointer-events: none;
   }
   .pillars-inner { max-width: 1400px; margin: 0 auto; position: relative; }
-
   .pillars-header {
     display: flex; justify-content: space-between; align-items: flex-end;
     margin-bottom: 4rem; gap: 2rem; flex-wrap: wrap;
@@ -501,14 +633,12 @@
     letter-spacing: 0.2em;
     color: var(--paper-warm); opacity: 0.5;
   }
-
   .pillar-grid {
     display: grid; grid-template-columns: repeat(4, 1fr);
     gap: 0; border-top: 1px solid rgba(255,255,255,0.2);
   }
   @media (max-width: 1100px) { .pillar-grid { grid-template-columns: repeat(2, 1fr); } }
   @media (max-width: 600px) { .pillar-grid { grid-template-columns: 1fr; } }
-
   .pillar {
     padding: 2.5rem 1.5rem 2.5rem 0;
     border-right: 1px solid rgba(255,255,255,0.2);
@@ -524,7 +654,6 @@
   @media (max-width: 600px) {
     .pillar { border-right: none !important; padding-left: 0; padding-right: 0; }
   }
-
   .pillar::after {
     content: ""; position: absolute;
     left: 0; bottom: -1px; width: 0; height: 2px;
@@ -534,7 +663,6 @@
   .pillar:hover { background: rgba(217, 74, 42, 0.07); transform: translateY(-4px); }
   .pillar:hover::after { width: 100%; }
   .pillar:hover h3 em { color: var(--accent); }
-
   .pillar .num {
     font-family: 'JetBrains Mono', monospace;
     font-size: 0.7rem; color: var(--accent);
@@ -547,23 +675,178 @@
     letter-spacing: -0.01em;
   }
   .pillar h3 em { font-style: italic; font-weight: 600; transition: color 0.3s; }
-  .pillar p {
-    font-size: 0.95rem; line-height: 1.55;
-    color: rgba(242,238,229,0.7);
-  }
+  .pillar p { font-size: 0.95rem; line-height: 1.55; color: rgba(242,238,229,0.7); }
 
-  /* ============ CRISPR EXPLAINER ============ */
-  .explainer {
+  /* ============ POLICY BUILDER ============ */
+  .policy {
     max-width: 1400px; margin: 0 auto;
     padding: 8rem 2rem;
   }
+  .policy-header {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 4rem;
+    margin-bottom: 4rem;
+  }
+  @media (max-width: 900px) { .policy-header { grid-template-columns: 1fr; gap: 1.5rem; } }
+  .policy-header h2 {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(2rem, 4.5vw, 3.5rem);
+    font-weight: 300; line-height: 1.05;
+    letter-spacing: -0.02em;
+  }
+  .policy-header h2 em { font-style: italic; font-weight: 900; color: var(--accent); }
+  .policy-header p {
+    font-family: 'Fraunces', serif;
+    font-size: 1.15rem; line-height: 1.55;
+    margin-top: 1rem;
+  }
+
+  .policy-grid {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: 4rem;
+    align-items: start;
+  }
+  @media (max-width: 900px) { .policy-grid { grid-template-columns: 1fr; gap: 3rem; } }
+
+  .sliders { display: flex; flex-direction: column; gap: 2rem; }
+  .slider-block {
+    border-bottom: 1px solid var(--line);
+    padding-bottom: 1.5rem;
+  }
+  .slider-block:last-child { border-bottom: none; }
+  .slider-block .top {
+    display: flex; justify-content: space-between; align-items: baseline;
+    margin-bottom: 0.25rem;
+  }
+  .slider-block .name {
+    font-family: 'Fraunces', serif;
+    font-size: 1.4rem; font-weight: 600;
+    letter-spacing: -0.01em;
+  }
+  .slider-block .value {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--accent);
+  }
+  .slider-block input[type="range"] {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 100%;
+    height: 6px;
+    border-radius: 3px;
+    background: rgba(14, 17, 22, 0.12);
+    outline: none;
+    margin: 0.85rem 0 0.5rem;
+  }
+  .slider-block input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 22px; height: 22px;
+    border-radius: 50%;
+    background: var(--accent);
+    cursor: pointer;
+    border: 3px solid var(--paper);
+    box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+    transition: transform 0.15s;
+  }
+  .slider-block input[type="range"]::-webkit-slider-thumb:hover { transform: scale(1.15); }
+  .slider-block input[type="range"]::-moz-range-thumb {
+    width: 22px; height: 22px;
+    border-radius: 50%;
+    background: var(--accent);
+    cursor: pointer;
+    border: 3px solid var(--paper);
+  }
+  .slider-block .scale {
+    display: flex; justify-content: space-between;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--muted);
+  }
+  .slider-block .desc {
+    font-family: 'Fraunces', serif;
+    font-size: 0.98rem; line-height: 1.5;
+    margin-top: 0.85rem;
+    min-height: 3.6em;
+    transition: opacity 0.2s;
+  }
+  .slider-block .desc em { font-style: italic; color: var(--accent); }
+
+  .policy-output {
+    background: var(--ink);
+    color: var(--paper);
+    padding: 2rem;
+    position: sticky;
+    top: 5rem;
+  }
+  .policy-output h4 {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    color: var(--accent);
+    margin-bottom: 1.5rem;
+  }
+  .policy-output .verdict {
+    font-family: 'Fraunces', serif;
+    font-size: 2.2rem;
+    font-weight: 300;
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    margin-bottom: 1rem;
+    transition: color 0.4s;
+  }
+  .policy-output .verdict em { font-style: italic; font-weight: 900; }
+  .policy-output .verdict-detail {
+    font-family: 'Fraunces', serif;
+    font-size: 1rem;
+    line-height: 1.5;
+    color: rgba(242, 238, 229, 0.75);
+    margin-bottom: 1.5rem;
+  }
+  .policy-output .meter {
+    margin-top: 1.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid rgba(242, 238, 229, 0.15);
+  }
+  .policy-output .meter-row {
+    display: grid;
+    grid-template-columns: 100px 1fr 30px;
+    gap: 0.75rem;
+    align-items: center;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 0.6rem;
+  }
+  .policy-output .meter-row .track {
+    height: 5px;
+    background: rgba(242, 238, 229, 0.15);
+    border-radius: 3px;
+    overflow: hidden;
+  }
+  .policy-output .meter-row .fill {
+    height: 100%;
+    transition: width 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
+  .policy-output .meter-row .fill.innovate { background: var(--accent-3); }
+  .policy-output .meter-row .fill.safety { background: var(--accent-2); }
+  .policy-output .meter-row .fill.equity { background: var(--accent-4); }
+  .policy-output .meter-row .pct { font-weight: 700; text-align: right; }
+
+  /* ============ CRISPR EXPLAINER ============ */
+  .explainer { max-width: 1400px; margin: 0 auto; padding: 8rem 2rem; }
   .explainer-grid {
     display: grid; grid-template-columns: 1fr 1fr;
     gap: 5rem; align-items: center;
   }
-  @media (max-width: 900px) {
-    .explainer-grid { grid-template-columns: 1fr; gap: 3rem; }
-  }
+  @media (max-width: 900px) { .explainer-grid { grid-template-columns: 1fr; gap: 3rem; } }
   .explainer h2 {
     font-family: 'Fraunces', serif;
     font-size: clamp(2rem, 4.5vw, 3.8rem);
@@ -592,7 +875,6 @@
   }
   .mech-diagram::before { top: -1px; left: -1px; border-right: none; border-bottom: none; }
   .mech-diagram::after { bottom: -1px; right: -1px; border-left: none; border-top: none; }
-
   .mech-label {
     position: absolute;
     font-family: 'JetBrains Mono', monospace;
@@ -603,9 +885,7 @@
   }
   .mech-label.tl { top: 1rem; left: 1rem; }
   .mech-label.br { bottom: 4.5rem; right: 1rem; color: var(--accent-2); }
-
   .mech-svg { width: 100%; height: calc(100% - 60px); }
-
   .step-controls {
     position: absolute;
     bottom: 1rem; left: 1rem; right: 1rem;
@@ -620,6 +900,7 @@
     font-size: 0.6rem;
     text-transform: uppercase;
     letter-spacing: 0.1em;
+    cursor: pointer;
     transition: all 0.2s;
   }
   .step-btn:hover { background: var(--ink); color: var(--paper); }
@@ -629,7 +910,6 @@
   .grna-mech { transition: opacity 0.6s; }
   .cut-marks { opacity: 0; transition: opacity 0.4s; }
   .repair-mark { opacity: 0; transition: opacity 0.5s; }
-
   .mech-step-1 .cas9-mech { transform: translate(0, -20px); }
   .mech-step-1 .grna-mech { opacity: 0; }
   .mech-step-2 .cas9-mech { transform: translate(0, 30px); }
@@ -676,76 +956,77 @@
     user-select: none; pointer-events: none;
   }
 
-  /* ============ PROMISE ============ */
-  .promise {
-    max-width: 1400px; margin: 0 auto;
-    padding: 8rem 2rem;
+  /* ============ NUMBERS / NOW ============ */
+  .now {
+    background: var(--paper-warm);
+    padding: 7rem 2rem;
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
   }
-  .promise-header { max-width: 700px; margin-bottom: 4rem; }
-  .promise-header h2 {
+  .now-inner { max-width: 1400px; margin: 0 auto; }
+  .now-header { max-width: 700px; margin-bottom: 4rem; }
+  .now-header h2 {
     font-family: 'Fraunces', serif;
-    font-size: clamp(2rem, 5vw, 4rem);
-    font-weight: 300; line-height: 1;
+    font-weight: 300;
+    font-size: clamp(2rem, 4.5vw, 3.5rem);
+    line-height: 1.05;
     letter-spacing: -0.02em;
     margin: 1rem 0 1.5rem;
   }
-  .promise-header h2 em {
-    font-style: italic; font-weight: 900;
-    background: linear-gradient(180deg, transparent 65%, rgba(201, 162, 39, 0.4) 65%);
-  }
-  .promise-header p {
+  .now-header h2 em { font-style: italic; font-weight: 900; color: var(--accent); }
+  .now-header p {
     font-family: 'Fraunces', serif;
-    font-size: 1.15rem; line-height: 1.6;
+    font-size: 1.1rem;
+    line-height: 1.55;
   }
 
-  .disease-grid {
-    display: grid; grid-template-columns: repeat(3, 1fr);
-    gap: 1rem;
+  .number-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.25rem;
   }
-  @media (max-width: 800px) { .disease-grid { grid-template-columns: repeat(2, 1fr); } }
-  @media (max-width: 500px) { .disease-grid { grid-template-columns: 1fr; } }
+  @media (max-width: 800px) { .number-grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 460px) { .number-grid { grid-template-columns: 1fr; } }
 
-  .disease-card {
+  .stat-box {
     padding: 2rem 1.5rem;
-    border: 1px solid var(--line-strong);
-    background: var(--paper-warm);
+    border: 1.5px solid var(--ink);
+    background: var(--paper);
     position: relative;
-    transition: transform 0.3s ease, border-color 0.3s ease;
-    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
   }
-  .disease-card::before {
-    content: ""; position: absolute;
-    inset: 0;
-    background: var(--ink);
-    transform: translateY(100%);
-    transition: transform 0.4s cubic-bezier(0.2, 0.7, 0.2, 1);
-    z-index: 0;
+  .stat-box:hover {
+    transform: translateY(-6px);
+    box-shadow: 6px 6px 0 var(--accent);
   }
-  .disease-card:hover::before { transform: translateY(0); }
-  .disease-card > * { position: relative; z-index: 1; transition: color 0.3s; }
-  .disease-card:hover { transform: translateY(-6px); border-color: var(--ink); }
-  .disease-card:hover .disease-meta { color: var(--accent-3); }
-  .disease-card:hover .disease-name { color: var(--paper); }
-
-  .disease-meta {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.65rem; text-transform: uppercase;
-    letter-spacing: 0.15em; color: var(--accent-2);
-    margin-bottom: 1rem;
-  }
-  .disease-name {
+  .stat-box .num {
     font-family: 'Fraunces', serif;
-    font-size: 1.6rem; font-weight: 400;
-    line-height: 1.1; letter-spacing: -0.01em;
+    font-weight: 800;
+    font-size: clamp(2.5rem, 5vw, 3.5rem);
+    line-height: 1;
+    letter-spacing: -0.03em;
+    color: var(--accent);
+    margin-bottom: 0.5rem;
   }
-  .disease-name em { font-style: italic; }
+  .stat-box .num .small { font-size: 0.55em; vertical-align: top; }
+  .stat-box .desc {
+    font-family: 'Fraunces', serif;
+    font-size: 1rem;
+    line-height: 1.4;
+  }
+  .stat-box .source {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.6rem;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--muted);
+    margin-top: 1rem;
+  }
 
   /* ============ TIMELINE ============ */
   .timeline-section {
-    background: var(--ink);
-    color: var(--paper);
-    padding: 8rem 2rem;
-    overflow: hidden;
+    background: var(--ink); color: var(--paper);
+    padding: 8rem 2rem; overflow: hidden;
   }
   .timeline-inner { max-width: 1400px; margin: 0 auto; }
   .timeline-section h2 {
@@ -757,7 +1038,6 @@
     max-width: 18ch;
   }
   .timeline-section h2 em { font-style: italic; font-weight: 900; color: var(--accent); }
-
   .timeline {
     position: relative;
     padding-left: 2rem;
@@ -769,8 +1049,7 @@
     transition: padding-left 0.3s;
   }
   .timeline-item::before {
-    content: "";
-    position: absolute;
+    content: ""; position: absolute;
     left: -2.4rem; top: 0.4rem;
     width: 12px; height: 12px;
     border-radius: 50%;
@@ -784,7 +1063,6 @@
     transform: scale(1.4);
     box-shadow: 0 0 0 6px rgba(217, 74, 42, 0.25);
   }
-
   .timeline-year {
     font-family: 'JetBrains Mono', monospace;
     font-size: 0.85rem;
@@ -824,7 +1102,6 @@
     margin: 1rem 0 3rem; max-width: 20ch;
   }
   .governance h2 em { font-style: italic; font-weight: 900; }
-
   .country-table {
     display: grid; grid-template-columns: 1fr;
     border-top: 1px solid var(--ink);
@@ -870,12 +1147,7 @@
     max-width: 1000px; margin: 0 auto;
     padding: 8rem 2rem; text-align: center;
   }
-  .closing .tag {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.72rem; text-transform: uppercase;
-    letter-spacing: 0.2em; color: var(--accent);
-    margin-bottom: 2rem; display: inline-block;
-  }
+  .closing .eyebrow { justify-content: center; }
   .closing h2 {
     font-family: 'Fraunces', serif;
     font-size: clamp(2.5rem, 6vw, 5rem);
@@ -889,7 +1161,6 @@
     font-size: 1.25rem; line-height: 1.55;
     max-width: 55ch; margin: 0 auto 3rem;
   }
-
   .cta-row {
     display: flex; gap: 1rem;
     justify-content: center; flex-wrap: wrap;
@@ -904,12 +1175,11 @@
     font-size: 0.72rem;
     text-transform: uppercase;
     letter-spacing: 0.15em;
+    cursor: pointer;
     transition: all 0.25s ease;
     position: relative; overflow: hidden;
   }
-  .btn::after {
-    content: "→"; transition: transform 0.25s ease;
-  }
+  .btn::after { content: "→"; transition: transform 0.25s ease; }
   .btn:hover { background: var(--ink); color: var(--paper); }
   .btn:hover::after { transform: translateX(4px); }
   .btn.primary { background: var(--ink); color: var(--paper); }
@@ -962,13 +1232,60 @@
     flex-wrap: wrap; gap: 1rem;
   }
 
-  /* Reveal */
   .reveal {
     opacity: 0; transform: translateY(30px);
     transition: all 0.9s cubic-bezier(0.2, 0.7, 0.2, 1);
   }
   .reveal.in { opacity: 1; transform: translateY(0); }
 
+  /* ============ PULL STATEMENT ============ */
+  .pull-statement {
+    max-width: 1300px;
+    margin: 0 auto;
+    padding: 9rem 2rem;
+    text-align: left;
+  }
+  .pull-statement .meta {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    color: var(--accent);
+    margin-bottom: 2rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+  .pull-statement .meta::before {
+    content: ""; width: 30px; height: 1px; background: var(--accent);
+  }
+  .pull-statement .big {
+    font-family: 'Fraunces', serif;
+    font-weight: 300;
+    font-size: clamp(2.5rem, 7vw, 6rem);
+    line-height: 0.95;
+    letter-spacing: -0.03em;
+    max-width: 22ch;
+  }
+  .pull-statement .big em {
+    font-style: italic; font-weight: 900; color: var(--accent);
+  }
+  .pull-statement .big .strike {
+    text-decoration: line-through;
+    text-decoration-color: var(--accent);
+    text-decoration-thickness: 0.08em;
+    color: var(--muted);
+  }
+  .pull-statement .small {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: 1.2rem;
+    color: var(--muted);
+    margin-top: 2.5rem;
+    max-width: 50ch;
+    line-height: 1.4;
+  }
+  .pull-statement .small strong { font-style: normal; color: var(--ink); font-weight: 700; }
 </style>
 </head>
 <body>
@@ -983,18 +1300,17 @@
     <a href="#thesis">Thesis</a>
     <a href="#myths">Myth/Reality</a>
     <a href="#pillars">Pillars</a>
+    <a href="#policy">Build a policy</a>
     <a href="#crispr">CRISPR</a>
+    <a href="#now">Now</a>
     <a href="#timeline">Timeline</a>
-    <a href="#governance">Governance</a>
   </nav>
-  <div class="meta">Est. 2026 · Position Brief № 01</div>
 </div>
 
-<!-- ============ HERO ============ -->
 <section class="hero">
   <div class="hero-grid">
     <div>
-      <div class="hero-tag">A Position on Gene-Editing Policy</div>
+      <div class="eyebrow">A Position on Gene-Editing Policy</div>
       <h1 class="hero-title">
         <span class="word" style="animation-delay:0.1s">Regulate</span>
         <span class="word" style="animation-delay:0.2s">the</span>
@@ -1004,10 +1320,9 @@
         <span class="word" style="animation-delay:0.65s">it.</span>
       </h1>
       <p class="hero-lede">
-        CRISPR is the most consequential scientific tool of our generation.
-        The policies we write around it today will decide which diseases our
-        children inherit, which they outgrow, and whether progress happens in
-        public laboratories—or in the shadows.
+        The most consequential tool of our generation. The policy we write
+        around it now will decide which diseases our children inherit—and
+        which they outgrow.
       </p>
       <div class="hero-meta">
         <div>Subject<strong>CRISPR-Cas9</strong></div>
@@ -1019,15 +1334,46 @@
     <div class="helix-stage" id="helixStage">
       <span class="floater f1">Guide RNA / 20-nt target</span>
       <span class="floater f2">Cas9 / endonuclease</span>
-      <span class="floater f3">Hover to slow · click for speed</span>
-
       <div class="helix-3d" id="helix3d"></div>
       <div class="cas9" id="cas9">CAS9</div>
+    </div>
+  </div>
+</section>
 
-      <div class="helix-controls">
-        <button class="helix-btn active" data-speed="normal">▶ Spin</button>
-        <button class="helix-btn" data-speed="fast">⏩ Fast</button>
-        <button class="helix-btn" data-speed="paused">⏸ Pause</button>
+<section class="poll-section reveal">
+  <div class="poll-grid">
+    <div>
+      <div class="section-label">00 Before You Read</div>
+      <h3 class="poll-q">Where do you stand <em>before</em> the argument starts?</h3>
+    </div>
+    <div>
+      <p class="poll-context">
+        We can correct sickle-cell anemia at the gene. <strong>Before birth, if we want to.</strong>
+        Three buttons. Pick one.
+      </p>
+      <div class="vote-row" id="voteRow">
+        <button class="vote-btn" data-choice="0"><span>YES — fix it</span></button>
+        <button class="vote-btn" data-choice="1"><span>NO — don't touch</span></button>
+        <button class="vote-btn" data-choice="2"><span>IT DEPENDS</span></button>
+      </div>
+      <div class="vote-results" id="voteResults">
+        <div class="label">→ How readers have voted</div>
+        <div class="vote-bar" data-i="0">
+          <div class="bar-label"><strong>Yes — fix it</strong><span class="pct">0%</span></div>
+          <div class="track"><div class="fill"></div></div>
+        </div>
+        <div class="vote-bar" data-i="1">
+          <div class="bar-label"><strong>No — don't touch</strong><span class="pct">0%</span></div>
+          <div class="track"><div class="fill"></div></div>
+        </div>
+        <div class="vote-bar" data-i="2">
+          <div class="bar-label"><strong>It depends</strong><span class="pct">0%</span></div>
+          <div class="track"><div class="fill"></div></div>
+        </div>
+        <div class="poll-coda">
+          <span class="arrow">→</span>
+          Whatever you picked, <strong>someone else</strong> is making this choice for you. Right now.
+        </div>
       </div>
     </div>
   </div>
@@ -1048,50 +1394,100 @@
   </div>
 </div>
 
-<!-- ============ THESIS ============ -->
 <section class="thesis reveal" id="thesis">
   <div class="section-label">01 The Thesis</div>
   <div class="thesis-body">
     <h2>Fiction taught us to fear the helix. <em>It's time to outgrow the story.</em></h2>
     <p>
-      Jurassic Park gave us "life finds a way." Blade Runner gave us replicants.
-      Gattaca gave us a world sorted by birthright. These stories are unforgettable—and
-      incomplete. They trained a century of audiences to associate genetic engineering
-      with catastrophe, and in doing so, seeded the regulatory instinct that governs
-      the field today: assume the worst, legislate against it, and ask questions later.
+      Jurassic Park. Blade Runner. Gattaca. A century of audiences trained to associate
+      genetic engineering with catastrophe.
     </p>
     <p>
-      But CRISPR is not a screenplay. It is a functioning tool, derived from the
-      oldest immune system on earth, capable of editing single letters of DNA with
-      surgical precision. And while legislators debate the specter of a dystopia
-      that may never arrive, real patients with sickle-cell disease, cystic fibrosis,
-      and Duchenne muscular dystrophy are waiting for treatments the science can
-      already imagine.
+      But CRISPR is not a screenplay. It's a working tool—built from the oldest immune
+      system on earth—that edits single letters of DNA. While legislators debate dystopias
+      that may never arrive, real patients wait for treatments the science can already deliver.
     </p>
     <p>
-      The position of this brief is simple: <strong>regulation should enable
-      innovation, not suppress it.</strong> We need an open, adaptive, internationally
-      coordinated framework—one that treats failure as data, ethics as a living
-      conversation, and human progress as a heritage worth pursuing.
+      The position of this brief: <strong>regulation should enable innovation, not suppress it.</strong>
+      Open. Adaptive. Globally coordinated. Anything less is fear pretending to be policy.
     </p>
   </div>
 </section>
 
-<!-- ============ MYTH VS REALITY ============ -->
 <section class="myth-section reveal" id="myths">
   <div class="myth-inner">
+    <div class="eyebrow">Myth vs. Reality</div>
     <h2>Hollywood's helix vs. <em>the lab's.</em></h2>
-    <div class="myth-tabs" id="mythTabs">
-      <button class="myth-tab active" data-tab="0">01 / Jurassic Park</button>
-      <button class="myth-tab" data-tab="1">02 / Blade Runner</button>
-      <button class="myth-tab" data-tab="2">03 / Gattaca</button>
-      <button class="myth-tab" data-tab="3">04 / The Headlines</button>
+    <p class="deck">Click to flip. <em>Movie</em> on the front, <em>science</em> on the back.</p>
+
+    <div class="flip-grid">
+      <div class="flip-card">
+        <div class="flip-card-inner">
+          <div class="flip-face flip-front">
+            <div class="meta">01 / Jurassic Park</div>
+            <h4>Genetic engineering = <em>uncontrollable monsters.</em></h4>
+            <div class="turn-cue">click to flip</div>
+          </div>
+          <div class="flip-face flip-back">
+            <div class="meta">→ The Reality</div>
+            <h4>An <em>editor</em>, not a creator.</h4>
+            <p>CRISPR doesn't conjure species from amber. It corrects single typos in genes that already exist. Closer to spell-check than Frankenstein.</p>
+            <div class="turn-cue">click to flip back</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="flip-card">
+        <div class="flip-card-inner">
+          <div class="flip-face flip-front">
+            <div class="meta">02 / Blade Runner</div>
+            <h4>Replicants <em>indistinguishable</em> from humans.</h4>
+            <div class="turn-cue">click to flip</div>
+          </div>
+          <div class="flip-face flip-back">
+            <div class="meta">→ The Reality</div>
+            <h4>Somatic edits, <em>narrow targets.</em></h4>
+            <p>Real CRISPR therapies fix one specific malfunction in a patient's own cells—often outside the body. Designer humans aren't on the roadmap.</p>
+            <div class="turn-cue">click to flip back</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="flip-card">
+        <div class="flip-card-inner">
+          <div class="flip-face flip-front">
+            <div class="meta">03 / Gattaca</div>
+            <h4>A society <em>sorted by genome.</em></h4>
+            <div class="turn-cue">click to flip</div>
+          </div>
+          <div class="flip-face flip-back">
+            <div class="meta">→ The Reality</div>
+            <h4>Genes are inputs, <em>not verdicts.</em></h4>
+            <p>Real-world success still turns on training, judgment, effort, luck. Gattaca compressed biology and society into a single scary axis that doesn't actually exist.</p>
+            <div class="turn-cue">click to flip back</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="flip-card">
+        <div class="flip-card-inner">
+          <div class="flip-face flip-front">
+            <div class="meta">04 / The Headlines</div>
+            <h4>Vague <em>fear</em> shapes public discourse.</h4>
+            <div class="turn-cue">click to flip</div>
+          </div>
+          <div class="flip-face flip-back">
+            <div class="meta">→ The Reality</div>
+            <h4>An informed debate is <em>overdue.</em></h4>
+            <p>Nobel: 2020. First approved CRISPR therapy: 2023. The clinic is here. The conversation should be too.</p>
+            <div class="turn-cue">click to flip back</div>
+          </div>
+        </div>
+      </div>
     </div>
-    <div class="myth-content" id="mythContent"></div>
   </div>
 </section>
 
-<!-- ============ PILLARS ============ -->
 <section class="pillars reveal" id="pillars">
   <div class="pillars-inner">
     <div class="pillars-header">
@@ -1102,36 +1498,116 @@
       <div class="pillar">
         <div class="num">01 / Openness</div>
         <h3>Regulation as a <em>public good.</em></h3>
-        <p>Borrowing from Whelan et al., rules must be accessible and applicable to every researcher, startup, and institution—not a private maze navigable only by the largest players.</p>
+        <p>Rules accessible to every researcher, not a private maze for the largest players.</p>
       </div>
       <div class="pillar">
         <div class="num">02 / Credibility</div>
         <h3>Trust, earned by <em>consistency.</em></h3>
-        <p>A credible regulator creates confidence that the rules will hold. Without that, innovation migrates to less visible environments—and oversight loses its purpose.</p>
+        <p>Without it, innovation migrates to where no one is watching.</p>
       </div>
       <div class="pillar">
         <div class="num">03 / Adaptivity</div>
         <h3>Ethics that <em>evolve</em> with the tool.</h3>
-        <p>Rigid rules break on contact with new capability. Evidence-based oversight, reviewed continuously, is the only framework that survives a technology this young.</p>
+        <p>Rigid rules break on contact with new capability. Evidence does not.</p>
       </div>
       <div class="pillar">
         <div class="num">04 / Coordination</div>
         <h3>No nation solves this <em>alone.</em></h3>
-        <p>Fragmented national rules—bans here, free-for-alls there—just push research into the least accountable places. The WHO is right: we need harmonized global governance.</p>
+        <p>Ban it here, and the work moves there. The WHO has been saying this for years.</p>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ============ CRISPR ============ -->
+<section class="pull-statement reveal">
+  <div class="meta">An Uncomfortable Premise</div>
+  <div class="big">
+    A cure already exists.<br/>
+    <span class="strike">Most</span> people <em>still won't get it.</em>
+  </div>
+  <div class="small">
+    CASGEVY—the first approved CRISPR therapy—lists at <strong>$2.2 million</strong> per patient.
+    The science isn't the bottleneck anymore. The policy is.
+  </div>
+</section>
+
+<section class="policy reveal" id="policy">
+  <div class="policy-header">
+    <div>
+      <div class="section-label">02b The Sandbox</div>
+    </div>
+    <div>
+      <h2>Now build <em>your own</em> framework.</h2>
+      <p>Three sliders. Three trade-offs. There is no neutral position.</p>
+    </div>
+  </div>
+
+  <div class="policy-grid">
+    <div class="sliders">
+      <div class="slider-block">
+        <div class="top">
+          <div class="name">Research freedom</div>
+          <div class="value" id="v1">50</div>
+        </div>
+        <input type="range" min="0" max="100" value="50" id="s1" />
+        <div class="scale"><span>Strict bans</span><span>Wild west</span></div>
+        <div class="desc" id="d1">Research moves cautiously, with major studies pre-approved by ethics boards.</div>
+      </div>
+
+      <div class="slider-block">
+        <div class="top">
+          <div class="name">Government oversight</div>
+          <div class="value" id="v2">50</div>
+        </div>
+        <input type="range" min="0" max="100" value="50" id="s2" />
+        <div class="scale"><span>Hands off</span><span>Maximum control</span></div>
+        <div class="desc" id="d2">Multiple agencies share oversight—flexible but sometimes inconsistent.</div>
+      </div>
+
+      <div class="slider-block">
+        <div class="top">
+          <div class="name">Equality of access</div>
+          <div class="value" id="v3">50</div>
+        </div>
+        <input type="range" min="0" max="100" value="50" id="s3" />
+        <div class="scale"><span>Pay to play</span><span>Universal</span></div>
+        <div class="desc" id="d3">Treatments are technically available, but cost limits who actually gets them.</div>
+      </div>
+    </div>
+
+    <div class="policy-output">
+      <h4>→ Your framework looks like</h4>
+      <div class="verdict" id="verdict">A balanced compromise.</div>
+      <div class="verdict-detail" id="verdictDetail">Most things proceed cautiously. Most diseases get treated. Most patients have access. Nothing's perfect—but it's not broken either.</div>
+      <div class="meter">
+        <div class="meter-row">
+          <div>Innovation</div>
+          <div class="track"><div class="fill innovate" id="m1" style="width:50%"></div></div>
+          <div class="pct" id="p1">50</div>
+        </div>
+        <div class="meter-row">
+          <div>Safety</div>
+          <div class="track"><div class="fill safety" id="m2" style="width:50%"></div></div>
+          <div class="pct" id="p2">50</div>
+        </div>
+        <div class="meter-row">
+          <div>Equity</div>
+          <div class="track"><div class="fill equity" id="m3" style="width:50%"></div></div>
+          <div class="pct" id="p3">50</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <section class="explainer reveal" id="crispr">
   <div class="explainer-grid">
     <div>
-      <div class="hero-tag">What It Actually Is</div>
+      <div class="eyebrow">What It Actually Is</div>
       <h2>A bacterial immune system, <em>repurposed as a scalpel.</em></h2>
-      <p>CRISPR—Clustered Regularly Interspaced Short Palindromic Repeats—was not invented in a laboratory. It was discovered. Bacteria use it to identify and cut the DNA of invading viruses.</p>
-      <p>Jennifer Doudna and Emmanuelle Charpentier—who won the 2020 Nobel Prize in Chemistry for their work—showed how to redirect that ancient mechanism. A short guide RNA leads the Cas9 enzyme to a chosen location in the genome, where Cas9 makes a precise cut. From there, the sequence can be removed, repaired, or replaced.</p>
-      <p>That's it. That's the tool. The debate is not whether it works—it works. The debate is how we choose to live with it. <strong>Click through the steps →</strong></p>
+      <p>Bacteria invented CRISPR. They use it to cut up viral DNA. Doudna and Charpentier figured out how to redirect it—at any letter we want.</p>
+      <p>A guide RNA leads the Cas9 enzyme to a chosen target. Cas9 makes a precise cut. The sequence can then be removed, repaired, or replaced.</p>
+      <p>That's the tool. <strong>The debate is what we let it do.</strong></p>
     </div>
 
     <div class="mech-diagram mech-step-1" id="mechDiagram">
@@ -1187,7 +1663,6 @@
   </div>
 </section>
 
-<!-- ============ QUOTE ============ -->
 <section class="quotebreak reveal">
   <div class="quote-mark">"</div>
   <div class="quotebreak-inner">
@@ -1196,99 +1671,109 @@
   </div>
 </section>
 
-<!-- ============ PROMISE ============ -->
-<section class="promise reveal">
-  <div class="promise-header">
-    <div class="hero-tag">What's Actually at Stake</div>
-    <h2>The <em>conditions</em> waiting on us.</h2>
-    <p>Brokowski and Adli describe CRISPR as one of the most versatile biomedical tools in the history of molecular biology. These are some of the conditions current research suggests it could one day prevent or treat. Every year we delay is a cohort of patients who won't benefit.</p>
-  </div>
-  <div class="disease-grid">
-    <div class="disease-card"><div class="disease-meta">01 · Inherited</div><div class="disease-name">Sickle-cell <em>anemia</em></div></div>
-    <div class="disease-card"><div class="disease-meta">02 · Inherited</div><div class="disease-name">Cystic <em>fibrosis</em></div></div>
-    <div class="disease-card"><div class="disease-meta">03 · Neuromuscular</div><div class="disease-name">Duchenne muscular <em>dystrophy</em></div></div>
-    <div class="disease-card"><div class="disease-meta">04 · Neurological</div><div class="disease-name">Amyotrophic lateral <em>sclerosis</em></div></div>
-    <div class="disease-card"><div class="disease-meta">05 · Oncological</div><div class="disease-name">Multiple <em>cancers</em></div></div>
-    <div class="disease-card"><div class="disease-meta">06 · Viral</div><div class="disease-name"><em>HIV</em></div></div>
-    <div class="disease-card"><div class="disease-meta">07 · Hematologic</div><div class="disease-name"><em>Hemophilia</em></div></div>
-    <div class="disease-card"><div class="disease-meta">08 · Reproductive</div><div class="disease-name"><em>Infertility</em></div></div>
-    <div class="disease-card"><div class="disease-meta">09 · Emerging</div><div class="disease-name">Novel and <em>unknown</em> disorders</div></div>
-  </div>
-</section>
+<section class="now reveal" id="now">
+  <div class="now-inner">
+    <div class="now-header">
+      <div class="eyebrow">What's at Stake, in Numbers</div>
+      <h2>This isn't future tech. <em>It's now.</em></h2>
+      <p>Four numbers. Each one already true.</p>
+    </div>
 
-<!-- ============ TIMELINE ============ -->
-<section class="timeline-section reveal" id="timeline">
-  <div class="timeline-inner">
-    <div class="hero-tag">A Brief Chronology</div>
-    <h2>From bacterial defense to <em>Nobel Prize.</em></h2>
-    <div class="timeline">
-      <div class="timeline-item">
-        <div class="timeline-year">1987</div>
-        <div class="timeline-title">Strange repeats <em>discovered</em></div>
-        <div class="timeline-desc">Japanese researchers studying E. coli notice unusual repeating DNA sequences. Their function is a complete mystery for the next two decades.</div>
+    <div class="number-grid">
+      <div class="stat-box">
+        <div class="num" data-target="2020">0</div>
+        <div class="desc">The Nobel Prize for genome editing.</div>
+        <div class="source">↳ Nobel Committee</div>
       </div>
-      <div class="timeline-item">
-        <div class="timeline-year">2007</div>
-        <div class="timeline-title">An immune system <em>identified</em></div>
-        <div class="timeline-desc">Researchers confirm that bacteria use these CRISPR sequences as an adaptive immune system—remembering and cutting the DNA of viral invaders.</div>
+      <div class="stat-box">
+        <div class="num" data-target="200">0<span class="small">+</span></div>
+        <div class="desc">Active CRISPR clinical trials worldwide.</div>
+        <div class="source">↳ ClinicalTrials.gov</div>
       </div>
-      <div class="timeline-item">
-        <div class="timeline-year">2012</div>
-        <div class="timeline-title">Doudna &amp; Charpentier <em>repurpose it</em></div>
-        <div class="timeline-desc">In a landmark paper, they demonstrate that CRISPR-Cas9 can be programmed with a guide RNA to cut any DNA sequence. The genome is now editable.</div>
+      <div class="stat-box">
+        <div class="num" data-target="10000">0</div>
+        <div class="desc">Inherited diseases potentially treatable today.</div>
+        <div class="source">↳ NIH estimate</div>
       </div>
-      <div class="timeline-item">
-        <div class="timeline-year">2020</div>
-        <div class="timeline-title">The <em>Nobel Prize</em></div>
-        <div class="timeline-desc">Doudna and Charpentier share the Nobel Prize in Chemistry "for the development of a method for genome editing"—the first time the prize is awarded to two women alone.</div>
-      </div>
-      <div class="timeline-item">
-        <div class="timeline-year">2023</div>
-        <div class="timeline-title">First <em>approved therapy</em></div>
-        <div class="timeline-desc">CASGEVY, the first CRISPR-based medicine, is approved for sickle-cell disease in the UK and US. Theory becomes treatment.</div>
-      </div>
-      <div class="timeline-item">
-        <div class="timeline-year">Now</div>
-        <div class="timeline-title">The <em>policy</em> question</div>
-        <div class="timeline-desc">The science is real. The therapies are arriving. The only question left is whether our regulatory frameworks will keep up—or hold us back.</div>
+      <div class="stat-box">
+        <div class="num" data-target="0">0</div>
+        <div class="desc">Countries with comprehensive CRISPR governance.</div>
+        <div class="source">↳ WHO 2021 — still true</div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ============ GOVERNANCE ============ -->
+<section class="timeline-section reveal" id="timeline">
+  <div class="timeline-inner">
+    <div class="eyebrow">A Brief Chronology</div>
+    <h2>From bacterial defense to <em>Nobel Prize.</em></h2>
+    <div class="timeline">
+      <div class="timeline-item">
+        <div class="timeline-year">1987</div>
+        <div class="timeline-title">Strange repeats <em>discovered</em></div>
+        <div class="timeline-desc">Researchers spot odd repeating sequences in E. coli. No one knows what they're for.</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-year">2007</div>
+        <div class="timeline-title">An immune system <em>identified</em></div>
+        <div class="timeline-desc">Bacteria, it turns out, were using these sequences to cut up viruses.</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-year">2012</div>
+        <div class="timeline-title">Doudna &amp; Charpentier <em>repurpose it</em></div>
+        <div class="timeline-desc">Programmable. Targetable. The genome becomes editable.</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-year">2020</div>
+        <div class="timeline-title">The <em>Nobel Prize</em></div>
+        <div class="timeline-desc">First time the Chemistry Nobel goes to two women alone.</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-year">2023</div>
+        <div class="timeline-title">First <em>approved therapy</em></div>
+        <div class="timeline-desc">CASGEVY launches. Theory becomes treatment.</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-year">Now</div>
+        <div class="timeline-title">The <em>policy</em> question</div>
+        <div class="timeline-desc">The science works. The therapies are here. <strong>Will the rules keep up?</strong></div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <section class="governance reveal" id="governance">
   <div class="governance-inner">
-    <div class="hero-tag" style="color: var(--accent-2);">A Tale of Three Regimes</div>
+    <div class="eyebrow" style="color: var(--accent-2);">A Tale of Three Regimes</div>
     <h2>Fragmented regulation is <em>worse than none.</em></h2>
     <div class="country-table">
       <div class="country-row">
         <div class="country-name">China</div>
-        <div class="country-desc">Severe penalties—including imprisonment—follow ethics violations. A response mechanism born of past scandal, but one that risks driving legitimate research into silence.</div>
+        <div class="country-desc">Severe penalties for ethics violations. The cure for one scandal can be worse than the scandal—legitimate research goes silent.</div>
         <div class="country-verdict verdict-bad">→ Overcorrected</div>
       </div>
       <div class="country-row">
         <div class="country-name">United States</div>
-        <div class="country-desc">Oversight decentralized across multiple federal agencies, each responsible for a slice of the technology. Flexible in theory, incoherent in practice.</div>
+        <div class="country-desc">Decentralized across multiple agencies. Flexible in theory. Incoherent in practice.</div>
         <div class="country-verdict verdict-mid">→ Fragmented</div>
       </div>
       <div class="country-row">
         <div class="country-name">The World</div>
-        <div class="country-desc">The WHO calls for harmonized governance and coordinated oversight. The logic is simple: when one country bans, research doesn't stop. It moves—to wherever oversight is weakest.</div>
+        <div class="country-desc">Harmonized governance. Coordinated oversight. The WHO has been asking. We haven't been listening.</div>
         <div class="country-verdict verdict-good">→ The Goal</div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ============ CLOSING ============ -->
 <section class="closing reveal" id="closing">
-  <span class="tag">A Call to the Curious</span>
+  <div class="eyebrow">A Call to the Curious</div>
   <h2>The helix doesn't ask for <em>permission.</em> It asks for <em>attention.</em></h2>
-  <p>CRISPR is coming to your generation whether you debate it or not. The question is whether you'll inherit a policy landscape built on fear of 20th-century movies—or one built on the evidence in front of us. Start with the sources. Then start the conversation.</p>
+  <p>This is being decided now. By people who learned about genetics from the same movies you did. <strong>Your move.</strong></p>
   <div class="cta-row">
     <a href="#thesis" class="btn primary">Read the Thesis</a>
-    <a href="#governance" class="btn">See the Policy</a>
+    <a href="#policy" class="btn">Build a Policy</a>
   </div>
 </section>
 
@@ -1316,14 +1801,16 @@
         <li><a href="#thesis">01 — Thesis</a></li>
         <li><a href="#myths">02 — Myth/Reality</a></li>
         <li><a href="#pillars">03 — Pillars</a></li>
-        <li><a href="#crispr">04 — CRISPR</a></li>
-        <li><a href="#timeline">05 — Timeline</a></li>
-        <li><a href="#governance">06 — Governance</a></li>
+        <li><a href="#policy">04 — Build a Policy</a></li>
+        <li><a href="#crispr">05 — CRISPR</a></li>
+        <li><a href="#now">06 — In Numbers</a></li>
+        <li><a href="#timeline">07 — Timeline</a></li>
+        <li><a href="#governance">08 — Governance</a></li>
       </ul>
     </div>
   </div>
   <div class="footer-bottom">
-      <div> 2026 · Richard Garlik · RHET 105</div>
+    <div>2026 · Richard Garlik · Rhetoric 105</div>
   </div>
 </footer>
 
@@ -1332,51 +1819,25 @@
   (function() {
     const helix = document.getElementById('helix3d');
     if (!helix) return;
-
-    const NUM_PAIRS = 26;
-    const HEIGHT = 580;
-    const RADIUS = 110;
-    const TURNS = 2.2;
+    const NUM_PAIRS = 26, HEIGHT = 580, RADIUS = 110, TURNS = 2.2;
     const targetIndex = Math.floor(NUM_PAIRS / 2);
-
     for (let i = 0; i < NUM_PAIRS; i++) {
       const t = i / (NUM_PAIRS - 1);
       const y = (t - 0.5) * HEIGHT;
       const angle = t * 360 * TURNS;
-
       const pair = document.createElement('div');
       pair.className = 'basepair';
       const isTarget = Math.abs(i - targetIndex) <= 1;
       const isCut = i === targetIndex;
       if (isTarget) pair.classList.add('target');
       if (isCut) pair.classList.add('cut');
-
       pair.style.width = (RADIUS * 2) + 'px';
       pair.style.marginLeft = (-RADIUS) + 'px';
       pair.style.transform = `translateY(${y}px) rotateY(${angle}deg)`;
-
-      pair.innerHTML = `
-        <div class="rung"></div>
-        <div class="nucleotide left"></div>
-        <div class="nucleotide right"></div>
-      `;
+      pair.innerHTML = `<div class="rung"></div><div class="nucleotide left"></div><div class="nucleotide right"></div>`;
       helix.appendChild(pair);
     }
-
     const stage = document.getElementById('helixStage');
-    const buttons = document.querySelectorAll('.helix-btn');
-    buttons.forEach(btn => {
-      btn.addEventListener('click', () => {
-        buttons.forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-        stage.classList.remove('paused', 'fast');
-        const speed = btn.dataset.speed;
-        if (speed === 'paused') stage.classList.add('paused');
-        if (speed === 'fast') stage.classList.add('fast');
-      });
-    });
-
-    // Hover slowdown for the helix
     stage.addEventListener('mouseenter', () => {
       if (!stage.classList.contains('paused') && !stage.classList.contains('fast')) {
         helix.style.animationDuration = '40s';
@@ -1391,62 +1852,55 @@
     });
   })();
 
-  // ============ MYTH VS REALITY ============
+  // ============ HERO POLL ============
   (function() {
-    const data = [
-      {
-        fictionTitle: "Resurrected dinosaurs and lab catastrophe",
-        fictionBody: "The 1993 film posed CRISPR's ancestors as a Pandora's box: \"Life finds a way,\" containment fails, and the technology produces predators that eat tourists. Genetic engineering becomes synonymous with hubris.",
-        realityTitle: "An editor, not a creator",
-        realityBody: "CRISPR doesn't conjure species from amber. It edits letters in existing DNA—correcting a single typo in a gene that causes sickle-cell anemia, for example. The actual scope of the tool is closer to spell-check than to Frankenstein."
-      },
-      {
-        fictionTitle: "Replicants indistinguishable from humans",
-        fictionBody: "Ridley Scott's vision: genetically engineered laborers built for jobs too dangerous for ordinary people, with shortened lifespans and existential dread. The engineering is total, and the ethics are catastrophic.",
-        realityTitle: "Somatic edits, narrow targets",
-        realityBody: "Real CRISPR therapies edit a patient's own cells—often outside the body—to fix one specific malfunction. They are reversible at the population level, heritable only in tightly debated germline cases, and nowhere near \"designer human\" territory."
-      },
-      {
-        fictionTitle: "A society sorted by genome",
-        fictionBody: "Gattaca imagined that genetically modified \"valids\" would dominate prestigious careers like astronaut selection, while the unmodified became permanent underclasses. Engineering becomes destiny.",
-        realityTitle: "Genes are inputs, not verdicts",
-        realityBody: "Even if widespread germline editing were available tomorrow, real-world astronaut selection turns on experience, dedication, training, and judgment. The film's premise compresses biology, sociology, and policy into a single scary axis—one that doesn't actually exist."
-      },
-      {
-        fictionTitle: "Public discourse: vague fear",
-        fictionBody: "Surveys repeatedly show that most peers report not even knowing CRISPR exists. The vacuum of information is filled by movies, half-remembered controversies, and the assumption that \"genetic engineering\" means something dystopian.",
-        realityTitle: "An informed debate is overdue",
-        realityBody: "Doudna's Nobel was in 2020. The first approved CRISPR therapy arrived in 2023. This technology is already in the clinic. The conversation we should be having is not whether it's coming—but what we want it to do when it arrives."
-      },
-    ];
-
-    const tabs = document.querySelectorAll('.myth-tab');
-    const content = document.getElementById('mythContent');
-    if (!content) return;
-
-    function render(idx) {
-      const d = data[idx];
-      content.innerHTML = `
-        <div class="myth-side fiction" style="animation-delay:0.05s">
-          <h4>The Fiction</h4>
-          <h3>${d.fictionTitle}</h3>
-          <p>${d.fictionBody}</p>
-        </div>
-        <div class="myth-side reality" style="animation-delay:0.2s">
-          <h4>The Reality</h4>
-          <h3>${d.realityTitle}</h3>
-          <p>${d.realityBody}</p>
-        </div>
-      `;
+    const KEY = 'helix-poll-v2';
+    const buttons = document.querySelectorAll('.vote-btn');
+    const results = document.getElementById('voteResults');
+    if (!buttons.length || !results) return;
+    let counts = [128, 86, 142];
+    let saved;
+    try { saved = JSON.parse(localStorage.getItem(KEY)); } catch(e){}
+    if (saved && saved.counts && saved.userChoice !== undefined) {
+      counts = saved.counts;
+      showResults(saved.userChoice, false);
     }
-    render(0);
-
-    tabs.forEach((tab, i) => {
-      tab.addEventListener('click', () => {
-        tabs.forEach(t => t.classList.remove('active'));
-        tab.classList.add('active');
-        render(i);
+    function showResults(userChoice, addVote) {
+      if (addVote) counts[userChoice] += 1;
+      const total = counts.reduce((a,b) => a+b, 0);
+      document.querySelectorAll('.vote-bar').forEach((bar, i) => {
+        const pct = total === 0 ? 0 : Math.round((counts[i] / total) * 100);
+        const fill = bar.querySelector('.fill');
+        const pctEl = bar.querySelector('.pct');
+        bar.classList.toggle('your-pick', i === userChoice);
+        setTimeout(() => { fill.style.transform = `scaleX(${pct/100})`; }, 60 + i*120);
+        const start = parseInt(pctEl.textContent.replace(/\D/g,'')) || 0;
+        animateNum(start, pct, 900, v => {
+          pctEl.innerHTML = (i === userChoice ? '<span class="your">← you · </span>' : '') + v + '%';
+        });
       });
+      results.classList.add('show');
+      try { localStorage.setItem(KEY, JSON.stringify({ counts, userChoice })); } catch(e){}
+    }
+    buttons.forEach(btn => {
+      btn.addEventListener('click', () => showResults(parseInt(btn.dataset.choice), true));
+    });
+    function animateNum(from, to, dur, cb) {
+      const start = performance.now();
+      function tick(now) {
+        const t = Math.min(1, (now - start) / dur);
+        const eased = 1 - Math.pow(1 - t, 3);
+        cb(Math.round(from + (to - from) * eased));
+        if (t < 1) requestAnimationFrame(tick);
+      }
+      requestAnimationFrame(tick);
+    }
+  })();
+
+  // ============ FLIP CARDS ============
+  (function() {
+    document.querySelectorAll('.flip-card').forEach(card => {
+      card.addEventListener('click', () => card.classList.toggle('flipped'));
     });
   })();
 
@@ -1455,14 +1909,8 @@
     const diagram = document.getElementById('mechDiagram');
     const buttons = document.querySelectorAll('.step-btn');
     const label = document.getElementById('stepLabel');
-    const labels = {
-      1: 'STEP 01 / APPROACH',
-      2: 'STEP 02 / TARGET',
-      3: 'STEP 03 / CUT',
-      4: 'STEP 04 / REPAIR'
-    };
+    const labels = { 1: 'STEP 01 / APPROACH', 2: 'STEP 02 / TARGET', 3: 'STEP 03 / CUT', 4: 'STEP 04 / REPAIR' };
     if (!diagram) return;
-
     function setStep(step) {
       buttons.forEach(b => b.classList.remove('active'));
       const target = document.querySelector(`.step-btn[data-step="${step}"]`);
@@ -1471,15 +1919,10 @@
       diagram.classList.add('mech-step-' + step);
       if (label) label.textContent = labels[step];
     }
-
     let userInteracted = false;
     buttons.forEach(btn => {
-      btn.addEventListener('click', () => {
-        userInteracted = true;
-        setStep(btn.dataset.step);
-      });
+      btn.addEventListener('click', () => { userInteracted = true; setStep(btn.dataset.step); });
     });
-
     let step = 1;
     const interval = setInterval(() => {
       if (userInteracted) { clearInterval(interval); return; }
@@ -1491,14 +1934,107 @@
     }, 2800);
   })();
 
+  // ============ POLICY SLIDERS ============
+  (function() {
+    const s1 = document.getElementById('s1'), s2 = document.getElementById('s2'), s3 = document.getElementById('s3');
+    if (!s1 || !s2 || !s3) return;
+    const descs = {
+      s1: [
+        { max: 20,  text: 'Total ban. Research collapses—or quietly migrates to countries with no rules at all.' },
+        { max: 40,  text: 'Heavy restrictions. Most experiments require multiple permits. Innovation slows considerably.' },
+        { max: 60,  text: 'Research moves cautiously, with major studies pre-approved by ethics boards.' },
+        { max: 80,  text: 'Open environment. Most research proceeds with light pre-approval and active monitoring.' },
+        { max: 100, text: 'Wild west. Anyone, anywhere, with any motive can run experiments. <em>Risk skyrockets.</em>' },
+      ],
+      s2: [
+        { max: 20,  text: 'No oversight. Bad actors face no consequences. Trust collapses.' },
+        { max: 40,  text: 'Light oversight, often inconsistent across agencies. Loopholes proliferate.' },
+        { max: 60,  text: 'Multiple agencies share oversight—flexible but sometimes inconsistent.' },
+        { max: 80,  text: 'Strong, coordinated oversight. Bad actors face real penalties; legitimate research thrives.' },
+        { max: 100, text: 'Maximum control. Even legitimate research needs years of approval. <em>Innovation dies.</em>' },
+      ],
+      s3: [
+        { max: 20,  text: 'Pure pay-to-play. Cures exist; only the rich access them. Inequality compounds.' },
+        { max: 40,  text: 'Mostly private. Some safety-net coverage but huge gaps remain.' },
+        { max: 60,  text: 'Treatments are technically available, but cost limits who actually gets them.' },
+        { max: 80,  text: 'Public funding ensures most patients can access approved therapies.' },
+        { max: 100, text: 'Universal access. Every patient who needs a cure gets one—paid for collectively.' },
+      ],
+    };
+    function pickDesc(key, val) {
+      for (const d of descs[key]) if (val <= d.max) return d.text;
+      return descs[key][descs[key].length-1].text;
+    }
+    function update() {
+      const v1 = +s1.value, v2 = +s2.value, v3 = +s3.value;
+      document.getElementById('v1').textContent = v1;
+      document.getElementById('v2').textContent = v2;
+      document.getElementById('v3').textContent = v3;
+      document.getElementById('d1').innerHTML = pickDesc('s1', v1);
+      document.getElementById('d2').innerHTML = pickDesc('s2', v2);
+      document.getElementById('d3').innerHTML = pickDesc('s3', v3);
+      const innovation = Math.max(0, Math.min(100, Math.round(v1 * 0.7 + (100 - v2) * 0.3)));
+      const safety = Math.max(0, Math.min(100, Math.round(v2 * 0.6 + (100 - Math.abs(v1 - 50) * 1.2) * 0.4)));
+      const equity = v3;
+      document.getElementById('m1').style.width = innovation + '%';
+      document.getElementById('p1').textContent = innovation;
+      document.getElementById('m2').style.width = safety + '%';
+      document.getElementById('p2').textContent = safety;
+      document.getElementById('m3').style.width = equity + '%';
+      document.getElementById('p3').textContent = equity;
+      const v = computeVerdict(v1, v2, v3, innovation, safety, equity);
+      document.getElementById('verdict').innerHTML = v.title;
+      document.getElementById('verdictDetail').innerHTML = v.detail;
+    }
+    function computeVerdict(v1, v2, v3, inv, saf, eq) {
+      if (v1 < 15 && v2 > 80) return { title: 'A <em>lockdown</em> regime.', detail: 'Research is suffocated. The science exists, but no one in your country can practice it. Other nations will lap you—and the patients waiting for cures are out of luck.' };
+      if (v1 > 85 && v2 < 20) return { title: 'The <em>wild west.</em>', detail: 'No rules, no enforcement. Brilliant breakthroughs happen alongside dangerous experiments. The first scandal will collapse public trust for a generation.' };
+      if (v3 < 25 && inv > 70) return { title: '<em>Inequality</em> compounds.', detail: 'Cures get invented. Only the wealthy receive them. The genetic gap between rich and poor becomes biological, not just economic.' };
+      if (inv > 70 && saf > 70 && eq > 70) return { title: 'The <em>open</em> framework.', detail: 'Open enough to innovate. Credible enough to enforce. Adaptive enough to evolve. Equitable enough to matter. This is what the essay is actually arguing for.' };
+      if (inv < 35 && saf < 35) return { title: 'Worst of <em>both worlds.</em>', detail: 'Innovation suffers AND oversight is weak. Bad rules are worse than no rules. Try moving sliders apart instead of toward extremes.' };
+      if (eq < 30) return { title: 'Cures for <em>some.</em>', detail: 'The science works for those who can afford it. Public health metrics improve in aggregate but mask widening disparities. Generations of people locked out.' };
+      if (saf < 30) return { title: 'A <em>scandal</em> waiting to happen.', detail: 'Without consistent oversight, legitimate research and reckless research look the same. The first major incident will be used to justify draconian rollbacks.' };
+      return { title: 'A <em>balanced</em> compromise.', detail: 'Most things proceed cautiously. Most diseases get treated. Most patients have access. Nothing\'s perfect—but it\'s not broken either. The question is whether "balanced" is good enough.' };
+    }
+    [s1, s2, s3].forEach(s => s.addEventListener('input', update));
+    update();
+  })();
+
+  // ============ COUNT-UP NUMBERS ============
+  (function() {
+    function countUp(el, target, dur = 1800) {
+      const start = performance.now();
+      const isYear = target >= 1900 && target <= 2100;
+      const isThousand = target >= 1000 && !isYear;
+      function tick(now) {
+        const t = Math.min(1, (now - start) / dur);
+        const eased = 1 - Math.pow(1 - t, 3);
+        const v = Math.round(target * eased);
+        const formatted = isThousand ? v.toLocaleString() : v;
+        const suffix = el.querySelector('.small');
+        el.innerHTML = formatted + (suffix ? '<span class="small">+</span>' : '');
+        if (t < 1) requestAnimationFrame(tick);
+      }
+      requestAnimationFrame(tick);
+    }
+    const obs = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (e.isIntersecting && !e.target.dataset.counted) {
+          e.target.dataset.counted = '1';
+          countUp(e.target, parseInt(e.target.dataset.target));
+        }
+      });
+    }, { threshold: 0.4 });
+    document.querySelectorAll('.stat-box .num').forEach(el => obs.observe(el));
+  })();
+
   // ============ SCROLL PROGRESS ============
   (function() {
     const bar = document.getElementById('progressBar');
     if (!bar) return;
     function update() {
       const h = document.documentElement;
-      const scrolled = (h.scrollTop) / (h.scrollHeight - h.clientHeight);
-      bar.style.width = (scrolled * 100) + '%';
+      bar.style.width = ((h.scrollTop / (h.scrollHeight - h.clientHeight)) * 100) + '%';
     }
     document.addEventListener('scroll', update, { passive: true });
     update();
@@ -1512,7 +2048,7 @@
   }, { threshold: 0.08 });
   document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
-  // ============ PARALLAX PERSPECTIVE ON HELIX ============
+  // ============ PARALLAX HELIX PERSPECTIVE ============
   (function() {
     const stage = document.getElementById('helixStage');
     if (!stage) return;
